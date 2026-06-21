@@ -2,12 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 
-
 export default function SaveTheDate() {
   const [revealed, setRevealed] = useState(false);
-
-  const [showConfetti, setShowConfetti] =
-  useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -17,279 +14,167 @@ export default function SaveTheDate() {
   });
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const revealedRef = useRef(false); // avoids stale closure issues in event handlers
 
   useEffect(() => {
-    const weddingDate = new Date(
-      "2026-07-19T10:00:00"
-    );
+    const weddingDate = new Date("2026-07-19T10:00:00");
 
     const timer = setInterval(() => {
       const now = new Date();
-
-      const diff =
-        weddingDate.getTime() -
-        now.getTime();
+      const diff = weddingDate.getTime() - now.getTime();
 
       if (diff <= 0) return;
 
       setTimeLeft({
-        days: Math.floor(
-          diff /
-            (1000 * 60 * 60 * 24)
-        ),
-
-        hours: Math.floor(
-          (diff /
-            (1000 * 60 * 60)) %
-            24
-        ),
-
-        minutes: Math.floor(
-          (diff / (1000 * 60)) %
-            60
-        ),
-
-        seconds: Math.floor(
-          (diff / 1000) % 60
-        ),
+        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((diff / (1000 * 60)) % 60),
+        seconds: Math.floor((diff / 1000) % 60),
       });
     }, 1000);
 
-    return () =>
-      clearInterval(timer);
+    return () => clearInterval(timer);
   }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
-
     if (!ctx) return;
 
+    // Internal drawing resolution (kept fixed for crisp rendering)
     const width = 700;
-    const height = 180;
+    const height = 220;
 
     canvas.width = width;
     canvas.height = height;
 
-    const gradient =
-      ctx.createLinearGradient(
-        0,
-        0,
-        width,
-        height
-      );
+    const draw = () => {
+      const gradient = ctx.createLinearGradient(0, 0, width, height);
+      gradient.addColorStop(0, "#dcb06c");
+      gradient.addColorStop(1, "#bf8c44");
 
-    gradient.addColorStop(
-      0,
-      "#dcb06c"
-    );
+      ctx.globalCompositeOperation = "source-over";
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
 
-    gradient.addColorStop(
-      1,
-      "#bf8c44"
-    );
+      ctx.fillStyle = "#fff";
+      ctx.font = "bold 34px serif";
+      ctx.textAlign = "center";
+      ctx.fillText("✦ SCRATCH TO REVEAL ✦", width / 2, height / 2 + 10);
+    };
 
-    ctx.fillStyle = gradient;
-
-    ctx.fillRect(
-      0,
-      0,
-      width,
-      height
-    );
-
-    ctx.fillStyle = "#fff";
-
-    ctx.font =
-      "bold 34px serif";
-
-    ctx.textAlign = "center";
-
-    ctx.fillText(
-      "✦ SCRATCH TO REVEAL ✦",
-      width / 2,
-      height / 2 + 10
-    );
+    draw();
 
     let drawing = false;
 
-    const scratch = (
-      x: number,
-      y: number
-    ) => {
-      ctx.globalCompositeOperation =
-        "destination-out";
+    // Converts a client (viewport) coordinate into canvas-internal pixel coordinates,
+    // accounting for the difference between the canvas's CSS display size and its
+    // internal drawing resolution (this is what was broken on mobile).
+    const getPos = (clientX: number, clientY: number) => {
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = canvas.width / rect.width;
+      const scaleY = canvas.height / rect.height;
 
+      return {
+        x: (clientX - rect.left) * scaleX,
+        y: (clientY - rect.top) * scaleY,
+      };
+    };
+
+    const scratch = (x: number, y: number) => {
+      ctx.globalCompositeOperation = "destination-out";
       ctx.beginPath();
-
-      ctx.arc(
-        x,
-        y,
-        45,
-        0,
-        Math.PI * 2
-      );
-
+      ctx.arc(x, y, 45, 0, Math.PI * 2);
       ctx.fill();
 
-      const pixels =
-        ctx.getImageData(
-          0,
-          0,
-          canvas.width,
-          canvas.height
-        );
-
+      const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
       let transparent = 0;
 
-      for (
-        let i = 3;
-        i < pixels.data.length;
-        i += 4
-      ) {
-        if (
-          pixels.data[i] === 0
-        ) {
+      for (let i = 3; i < pixels.data.length; i += 4) {
+        if (pixels.data[i] === 0) {
           transparent++;
         }
       }
 
-      const percent =
-        transparent /
-        (canvas.width *
-          canvas.height);
+      const percent = transparent / (canvas.width * canvas.height);
 
-      if (
-  percent > 0.35 &&
-  !revealed
-) {
-  setRevealed(true);
+      if (percent > 0.35 && !revealedRef.current) {
+        revealedRef.current = true;
+        setRevealed(true);
+        setShowConfetti(true);
 
-  setShowConfetti(true);
-
-  setTimeout(() => {
-    setShowConfetti(false);
-  }, 5000);
-}
-    };
-
-    const getPos = (
-      e: MouseEvent | TouchEvent
-    ) => {
-      const rect =
-        canvas.getBoundingClientRect();
-
-      if ("touches" in e) {
-        return {
-          x:
-            e.touches[0]
-              .clientX -
-            rect.left,
-
-          y:
-            e.touches[0]
-              .clientY -
-            rect.top,
-        };
+        setTimeout(() => {
+          setShowConfetti(false);
+        }, 5000);
       }
-
-      return {
-        x:
-          e.clientX -
-          rect.left,
-
-        y:
-          e.clientY -
-          rect.top,
-      };
     };
 
-    const start = () => {
+    // --- Mouse handlers ---
+    const onMouseDown = (e: MouseEvent) => {
       drawing = true;
+      const pos = getPos(e.clientX, e.clientY);
+      scratch(pos.x, pos.y);
     };
 
-    const stop = () => {
+    const onMouseUp = () => {
       drawing = false;
     };
 
-    const move = (
-      e: MouseEvent | TouchEvent
-    ) => {
+    const onMouseMove = (e: MouseEvent) => {
       if (!drawing) return;
-
-      const pos = getPos(e);
-
-      scratch(
-        pos.x,
-        pos.y
-      );
+      const pos = getPos(e.clientX, e.clientY);
+      scratch(pos.x, pos.y);
     };
 
-    canvas.addEventListener(
-      "mousedown",
-      start
-    );
+    // --- Touch handlers ---
+    const onTouchStart = (e: TouchEvent) => {
+      e.preventDefault(); // stop the page from scrolling while scratching
+      drawing = true;
+      const touch = e.touches[0];
+      if (!touch) return;
+      const pos = getPos(touch.clientX, touch.clientY);
+      scratch(pos.x, pos.y);
+    };
 
-    canvas.addEventListener(
-      "mouseup",
-      stop
-    );
+    const onTouchEnd = (e: TouchEvent) => {
+      e.preventDefault();
+      drawing = false;
+    };
 
-    canvas.addEventListener(
-      "mousemove",
-      move
-    );
+    const onTouchMove = (e: TouchEvent) => {
+      if (!drawing) return;
+      e.preventDefault(); // critical: prevents scroll-hijacking on mobile
+      const touch = e.touches[0];
+      if (!touch) return;
+      const pos = getPos(touch.clientX, touch.clientY);
+      scratch(pos.x, pos.y);
+    };
 
-    canvas.addEventListener(
-      "touchstart",
-      start
-    );
+    canvas.addEventListener("mousedown", onMouseDown);
+    canvas.addEventListener("mouseup", onMouseUp);
+    canvas.addEventListener("mouseleave", onMouseUp);
+    canvas.addEventListener("mousemove", onMouseMove);
 
-    canvas.addEventListener(
-      "touchend",
-      stop
-    );
-
-    canvas.addEventListener(
-      "touchmove",
-      move
-    );
+    // passive: false is required so preventDefault() actually works on touch events
+    canvas.addEventListener("touchstart", onTouchStart, { passive: false });
+    canvas.addEventListener("touchend", onTouchEnd, { passive: false });
+    canvas.addEventListener("touchcancel", onTouchEnd, { passive: false });
+    canvas.addEventListener("touchmove", onTouchMove, { passive: false });
 
     return () => {
-      canvas.removeEventListener(
-        "mousedown",
-        start
-      );
+      canvas.removeEventListener("mousedown", onMouseDown);
+      canvas.removeEventListener("mouseup", onMouseUp);
+      canvas.removeEventListener("mouseleave", onMouseUp);
+      canvas.removeEventListener("mousemove", onMouseMove);
 
-      canvas.removeEventListener(
-        "mouseup",
-        stop
-      );
-
-      canvas.removeEventListener(
-        "mousemove",
-        move
-      );
-
-      canvas.removeEventListener(
-        "touchstart",
-        start
-      );
-
-      canvas.removeEventListener(
-        "touchend",
-        stop
-      );
-
-      canvas.removeEventListener(
-        "touchmove",
-        move
-      );
+      canvas.removeEventListener("touchstart", onTouchStart);
+      canvas.removeEventListener("touchend", onTouchEnd);
+      canvas.removeEventListener("touchcancel", onTouchEnd);
+      canvas.removeEventListener("touchmove", onTouchMove);
     };
-  }, [revealed]);
+  }, []);
 
   return (
     <section
@@ -299,8 +184,7 @@ export default function SaveTheDate() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding:
-          "120px 20px",
+        padding: "120px 20px",
       }}
     >
       <div
@@ -308,46 +192,28 @@ export default function SaveTheDate() {
           width: "700px",
           maxWidth: "90vw",
           height: "220px",
-          position:
-            "relative",
+          position: "relative",
         }}
       >
         {/* Hidden Content */}
-
         <div
           className="glass-card"
           style={{
-            position:
-              "absolute",
-
+            position: "absolute",
             inset: 0,
-
-            borderRadius:
-              "30px",
-
+            borderRadius: "30px",
             display: "flex",
-
-            flexDirection:
-              "column",
-
-            justifyContent:
-              "center",
-
-            alignItems:
-              "center",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           <p
             className="font-title"
             style={{
-              color:
-                "#7d8b5c",
-
-              letterSpacing:
-                "6px",
-
-              fontSize:
-                "24px",
+              color: "#7d8b5c",
+              letterSpacing: "6px",
+              fontSize: "24px",
             }}
           >
             SAVE THE DATE
@@ -356,11 +222,8 @@ export default function SaveTheDate() {
           <h3
             className="font-script"
             style={{
-              color:
-                "#8B1E2D",
-
-              fontSize:
-                "72px",
+              color: "#8B1E2D",
+              fontSize: "72px",
             }}
           >
             19th July 2026
@@ -368,198 +231,125 @@ export default function SaveTheDate() {
         </div>
 
         {/* Scratch Layer */}
-
         {!revealed && (
           <canvas
             ref={canvasRef}
             style={{
-              position:
-                "absolute",
-
+              position: "absolute",
               inset: 0,
-
               width: "100%",
-
-              height:
-                "100%",
-
-              borderRadius:
-                "30px",
-
+              height: "100%",
+              borderRadius: "30px",
               zIndex: 10,
-
-              cursor:
-                "pointer",
+              cursor: "pointer",
+              touchAction: "none", // prevents the browser from intercepting touch gestures for scrolling/zooming
             }}
           />
         )}
       </div>
 
       {/* Timer */}
-
       {revealed && (
         <>
-          <div
-  className="
-  flex
-  flex-wrap
-  justify-center
-
-  gap-8
-
-  mt-16
-  "
->
+          <div className="flex flex-wrap justify-center gap-8 mt-16">
             {[
-              [
-                "DAYS",
-                timeLeft.days,
-              ],
+              ["DAYS", timeLeft.days],
+              ["HOURS", timeLeft.hours],
+              ["MINUTES", timeLeft.minutes],
+              ["SECONDS", timeLeft.seconds],
+            ].map(([label, value], i) => (
+              <div
+                key={i}
+                className="
+                  w-[140px]
+                  h-[140px]
+                  md:w-[170px]
+                  md:h-[170px]
+                  rounded-[28px]
+                  bg-white/35
+                  backdrop-blur-md
+                  border
+                  border-[#d4af37]
+                  flex
+                  flex-col
+                  items-center
+                  justify-center
+                  shadow-lg
+                "
+              >
+                <span
+                  className="
+                    mt-6
+                    text-[#7f9162]
+                    tracking-[6px]
+                    text-2xl
+                    font-title
+                  "
+                >
+                  {String(value).padStart(2, "0")}
+                </span>
 
-              [
-                "HOURS",
-                timeLeft.hours,
-              ],
-
-              [
-                "MINUTES",
-                timeLeft.minutes,
-              ],
-
-              [
-                "SECONDS",
-                timeLeft.seconds,
-              ],
-            ].map(
-              (
-                [
-                  label,
-                  value,
-                ],
-                i
-              ) => (
-                <div
-  className="
-  w-[140px]
-  h-[140px]
-  md:w-[170px]
-  md:h-[170px]
-
-  rounded-[28px]
-
-  bg-white/35
-  backdrop-blur-md
-
-  border
-  border-[#d4af37]
-
-  flex
-  flex-col
-  items-center
-  justify-center
-
-  shadow-lg
-  "
->
-  <span
-  className="
-  mt-6
-
-  text-[#7f9162]
-
-  tracking-[6px]
-
-  text-2xl
-
-  font-title
-  "
->
-    {String(value).padStart(2, "0")}
-  </span>
-
-  <span
-    className="
-    mt-5
-
-    text-[#7d8b5c]
-
-    tracking-[4px]
-
-    text-xl
-
-    font-title
-    "
-  >
-    {label}
-  </span>
-</div>
-              )
-            )}
+                <span
+                  className="
+                    mt-5
+                    text-[#7d8b5c]
+                    tracking-[4px]
+                    text-xl
+                    font-title
+                  "
+                >
+                  {label}
+                </span>
+              </div>
+            ))}
           </div>
 
           {/* Confetti */}
-
           {showConfetti && (
-  <>
-    <div
-      className="
-      fixed
-      top-20
-      left-1/2
-      -translate-x-1/2
-      text-8xl
-      z-[1000]
-      animate-bounce
-      "
-    >
-      🎉
-    </div>
+            <>
+              <div
+                className="
+                  fixed
+                  top-20
+                  left-1/2
+                  -translate-x-1/2
+                  text-8xl
+                  z-[1000]
+                  animate-bounce
+                "
+              >
+                🎉
+              </div>
 
-    <div
-      className="
-      fixed
-      inset-0
-      pointer-events-none
-      z-[999]
-      "
-    >
-      {[...Array(150)].map(
-        (_, i) => (
-          <span
-            key={i}
-            className="confetti"
-            style={{
-              left:
-                Math.random() *
-                  100 +
-                "%",
-
-              background:
-                [
-                  "#ff4d6d",
-                  "#ffd60a",
-                  "#06d6a0",
-                  "#118ab2",
-                  "#ef476f",
-                  "#d4af37",
-                ][
-                  Math.floor(
-                    Math.random() *
-                      6
-                  )
-                ],
-
-              animationDelay:
-                Math.random() *
-                  0.5 +
-                "s",
-            }}
-          />
-        )
-      )}
-    </div>
-  </>
-)}
+              <div
+                className="
+                  fixed
+                  inset-0
+                  pointer-events-none
+                  z-[999]
+                "
+              >
+                {[...Array(150)].map((_, i) => (
+                  <span
+                    key={i}
+                    className="confetti"
+                    style={{
+                      left: Math.random() * 100 + "%",
+                      background: [
+                        "#ff4d6d",
+                        "#ffd60a",
+                        "#06d6a0",
+                        "#118ab2",
+                        "#ef476f",
+                        "#d4af37",
+                      ][Math.floor(Math.random() * 6)],
+                      animationDelay: Math.random() * 0.5 + "s",
+                    }}
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </>
       )}
     </section>
