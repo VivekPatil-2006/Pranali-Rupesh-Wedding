@@ -59,7 +59,7 @@ export default function GaneshVandana() {
         <div
           className="
           bg-white/30
-          backdrop-blur-xl
+          backdrop-blur-md
           rounded-[28px]
           border
           border-[#d4af37]
@@ -90,6 +90,7 @@ export default function GaneshVandana() {
               text-[#7b1c2a]
               tracking-[3px]
               text-sm
+              bold
               md:text-base
               "
             >
@@ -97,43 +98,60 @@ export default function GaneshVandana() {
             </p>
           </div>
 
-          {/* Shloka */}
+          {/* Shloka with filled blur background panel */}
 
-          <h2
+          <div
             className="
+            relative
             mt-8
-            text-[#5C0F14]
-            text-2xl
-            md:text-3xl
-            leading-loose
+            mx-auto
+            max-w-xl
+            rounded-3xl
+            border
             "
+            style={{
+              background: "rgba(255, 255, 255, 0.55)",
+              backdropFilter: "blur(2px)",
+              WebkitBackdropFilter: "blur(2px)",
+              borderColor: "rgba(212, 175, 55, 0.5)",
+              boxShadow: "0 10px 40px -10px rgba(170,120,40,0.30)",
+            }}
           >
-            <br />
-            मङ्गलं भगवान विष्णुः
-            <br />
-            मङ्गलं गरुडध्वजः ।
-            <br />
-            मङ्गलं पुण्डरीकाक्षः
-            <br />
-            मङ्गलाय तनो हरिः ॥
-          </h2>
+            <div className="px-6 py-8 md:px-10 md:py-10">
+              <h2
+                className="
+                text-[#5C0F14]
+                text-2xl
+                md:text-3xl
+                leading-loose
+                "
+              >
+                मङ्गलं भगवान विष्णुः
+                <br />
+                मङ्गलं गरुडध्वजः ।
+                <br />
+                मङ्गलं पुण्डरीकाक्षः
+                <br />
+                मङ्गलाय तनो हरिः ॥
+              </h2>
 
-          {/* Translation */}
+              {/* Translation */}
 
-          <p
-            className="
-            mt-6
-            text-[#7b1c2a]
-            italic
-            text-base
-            md:text-lg
-            "
-          >
-            <br />
-            Mangalam Bhagwan Vishnu · Mangalam Garudadhwajah
-            <br />
-            Mangalam Pundarikakshah · Mangalaya Tano Harih
-          </p>
+              <p
+                className="
+                mt-6
+                text-[#7b1c2a]
+                italic
+                text-base
+                md:text-lg
+                "
+              >
+                Mangalam Bhagwan Vishnu · Mangalam Garudadhwajah
+                <br />
+                Mangalam Pundarikakshah · Mangalaya Tano Harih
+              </p>
+            </div>
+          </div>
 
           {/* Invitation Text */}
 
@@ -146,7 +164,7 @@ export default function GaneshVandana() {
             leading-relaxed
             "
           >
-            <br />
+            <br/>
             We request the honor of your gracious presence
             <br />
             on the auspicious occasion of the wedding
@@ -192,17 +210,6 @@ export default function GaneshVandana() {
                 "
               >
                 ↓
-              </span>
-
-              <span
-                className="
-                text-[#7b1c2a]
-                text-4xl
-                leading-none
-                -mt-2
-                "
-              >
-                
               </span>
             </div>
           </motion.div>
