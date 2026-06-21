@@ -1,0 +1,325 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #fcf8f2;
+
+  --primary: #5c0f14;
+  --primary-dark: #3a050b;
+
+  --gold: #d4af37;
+
+  --text: #2b1b1b;
+
+  --glass: rgba(255, 255, 255, 0.4);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+  font-family: var(--font-cormorant);
+}
+
+/* Fonts */
+
+.font-script {
+  font-family: var(--font-great-vibes);
+}
+
+.font-title {
+  font-family: var(--font-cinzel);
+}
+
+/* Glass Card */
+
+.glass-card {
+  background: rgba(255,255,255,0.4);
+
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255,255,255,0.3);
+
+  box-shadow:
+    0 20px 60px -20px rgba(90,20,30,0.25);
+}
+
+/* Section Padding */
+
+.section-padding {
+  padding: 100px 20px;
+}
+
+/* Elegant Shadow */
+
+.shadow-elegant {
+  box-shadow:
+    0 20px 60px -20px rgba(90,20,30,0.25);
+}
+
+/* Gold Shadow */
+
+.shadow-gold {
+  box-shadow:
+    0 10px 40px -10px rgba(170,120,40,0.30);
+}
+
+/* Floating Animation */
+
+@keyframes floatPetal {
+  0% {
+    transform:
+      translateY(-150px)
+      rotate(0deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  100% {
+    transform:
+      translateY(120vh)
+      translateX(100px)
+      rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Bell Swing */
+
+@keyframes bellSwing {
+  0% {
+    transform: rotate(-8deg);
+  }
+
+  50% {
+    transform: rotate(8deg);
+  }
+
+  100% {
+    transform: rotate(-8deg);
+  }
+}
+
+/* Fade Up */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fadeUp 1s ease forwards;
+}
+@keyframes drift {
+  0% {
+    transform: translateY(-10px);
+  }
+
+  50% {
+    transform: translateY(10px);
+  }
+
+  100% {
+    transform: translateY(-10px);
+  }
+}
+
+.float-slow {
+  animation: drift 4s ease-in-out infinite;
+}
+.animate-bell {
+  font-size: 60px;
+  color: #b8860b;
+
+  animation: bellSwing 3s ease-in-out infinite;
+
+  transform-origin: top center;
+}
+.font-script {
+  font-family: var(--font-great-vibes);
+  font-weight: 400;
+}
+
+.font-title {
+  font-family: var(--font-cinzel);
+}
+
+@media (max-width: 768px) {
+
+  .font-script {
+    font-size: 48px !important;
+  }
+
+  h2.font-title {
+    font-size: 36px !important;
+  }
+
+}
+
+#envelope.open {
+  animation: openEnvelope 1.2s ease forwards;
+}
+
+@keyframes openEnvelope {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.glass-haldi {
+  background: rgba(255,255,255,0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+@keyframes confettiFall {
+  from {
+    transform: translateY(-100px)
+      rotate(0deg);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(100vh)
+      rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.confetti {
+  position: fixed;
+  top: -20px;
+  width: 10px;
+  height: 10px;
+  animation:
+    confettiFall
+    4s linear infinite;
+}
+
+@keyframes confettiFall {
+  from {
+    transform: translateY(-100px)
+      rotate(0deg);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(100vh)
+      rotate(720deg);
+    opacity: 0;
+  }
+}
+
+@keyframes confettiBurst {
+  0% {
+    transform:
+      translateY(-150px)
+      rotate(0deg);
+
+    opacity: 1;
+  }
+
+  100% {
+    transform:
+      translateY(120vh)
+      rotate(720deg);
+
+    opacity: 0;
+  }
+}
+
+@keyframes confettiBurst {
+  0% {
+    transform:
+      translateY(-150px)
+      rotate(0deg);
+
+    opacity: 1;
+  }
+
+  100% {
+    transform:
+      translateY(120vh)
+      rotate(720deg);
+
+    opacity: 0;
+  }
+}
+
+.confetti {
+  position: absolute;
+
+  top: -30px;
+
+  width: 12px;
+  height: 12px;
+
+  animation:
+    confettiBurst
+    4s linear forwards;
+}
+
+@keyframes confettiBurst {
+  0% {
+    transform:
+      translateY(-150px)
+      rotate(0deg);
+
+    opacity: 1;
+  }
+
+  100% {
+    transform:
+      translateY(120vh)
+      rotate(720deg);
+
+    opacity: 0;
+  }
+}
+
+.confetti {
+  position: absolute;
+
+  top: -20px;
+
+  width: 12px;
+  height: 12px;
+
+  border-radius: 2px;
+
+  animation:
+    confettiBurst
+    4s linear forwards;
+}
