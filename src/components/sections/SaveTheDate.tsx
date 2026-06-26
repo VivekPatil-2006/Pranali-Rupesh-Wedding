@@ -184,15 +184,20 @@ export default function SaveTheDate() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "90px 20px",
+        fontFamily: "serif",
+        color: "brown",
+        padding: "70px 20px",
       }}
-    >        <h2>To Reveal Date</h2>
+    >
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-title tracking-[4px] text-[#8B1E2D]">
+        To Reveal Date
+      </h2>
 
       <div
         style={{
-          width: "700px",
-          maxWidth: "90vw",
-          height: "220px",
+          width: "100%",
+          maxWidth: "700px",
+          minHeight: "220px",
           position: "relative",
         }}
       >
@@ -210,21 +215,20 @@ export default function SaveTheDate() {
           }}
         >
           <p
-            className="font-title"
+            className="font-title text-base sm:text-lg"
             style={{
               color: "#7d8b5c",
               letterSpacing: "6px",
-              fontSize: "24px",
+              fontWeight: "bold",
             }}
           >
             SAVE THE DATE
           </p>
 
           <h3
-            className="font-script"
+            className="font-script text-4xl sm:text-5xl md:text-6xl"
             style={{
               color: "#8B1E2D",
-              fontSize: "72px",
             }}
           >
             19th July 2026
@@ -262,8 +266,10 @@ export default function SaveTheDate() {
               <div
                 key={i}
                 className="
-                  w-[140px]
-                  h-[140px]
+                  w-[120px]
+                  h-[120px]
+                  sm:w-[140px]
+                  sm:h-[140px]
                   md:w-[170px]
                   md:h-[170px]
                   rounded-[28px]

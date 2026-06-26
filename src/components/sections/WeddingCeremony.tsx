@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function WeddingCeremony() {
   return (
-    <section className="px-4 py-24 mt-32">
+    <section className="px-4 py-16 sm:py-20 mt-16 sm:mt-20">
       <div
         className="
         relative
@@ -13,10 +13,9 @@ export default function WeddingCeremony() {
         border
         border-[#d4af37]
         overflow-hidden
-        rounded-[40px]
+        rounded-[32px]
         "
       >
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
         {/* Background */}
 
         <Image
@@ -29,7 +28,7 @@ export default function WeddingCeremony() {
 
         {/* Content */}
 
-        <div className="relative z-10 p-8 md:p-12">
+        <div className="relative z-10 p-6 sm:p-8 md:p-12">
 
           {/* Glass Card */}
 
@@ -37,14 +36,17 @@ export default function WeddingCeremony() {
             className="
             mx-auto
             mt-12
-            w-[92%]
-            rounded-[36px]
+            w-full
+            max-w-[92%]
+            rounded-[32px]
             bg-white/45
             backdrop-blur-md
             shadow-2xl
             text-center
             px-6
-            py-12
+            py-10
+            sm:px-8
+            sm:py-12
             "
           >
             {/* Logo */}
@@ -111,10 +113,12 @@ export default function WeddingCeremony() {
               className="
               font-title
               text-[#8B1E2D]
-              text-4xl
+              text-3xl
+              sm:text-4xl
               md:text-6xl
               mt-10
               tracking-[4px]
+              leading-tight
               "
             >
               WEDDING CEREMONY
@@ -171,9 +175,13 @@ export default function WeddingCeremony() {
               width={450}
               height={450}
               className="
-              object-contain
-              drop-shadow-xl
-              "
+                w-full
+                max-w-[320px]
+                sm:max-w-[450px]
+                object-contain
+                drop-shadow-xl
+                rounded-2xl
+                "
             />
           </div>
 
@@ -182,3 +190,4 @@ export default function WeddingCeremony() {
     </section>
   );
 }
+

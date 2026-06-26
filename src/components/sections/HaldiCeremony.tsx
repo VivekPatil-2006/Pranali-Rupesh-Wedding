@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 
-export default function WeddingCeremony() {
+export default function HaldiCeremony() {
   return (
-    <section className="px-4 py-24">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+    <section className="px-4 py-16 sm:py-20">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
         {/* ========== HALDI CARD ========== */}
         <div
           className="
@@ -13,7 +13,7 @@ export default function WeddingCeremony() {
           border
           border-[#d4af37]
           overflow-hidden
-          rounded-[40px]
+          rounded-[32px]
           bg-[#fcf8f0]
           shadow-xl
           "
@@ -67,56 +67,19 @@ export default function WeddingCeremony() {
                 </div>
               </div>
 
-              {/* Hashtag */}
-              <p
-                className="
-                mt-5
-                text-[#c06d22]
-                italic
-                text-xl
-                bold
-                tracking-wide
-                "
-              >
-                #PraRupWedding
-              </p>
-
-              {/* Sub Title */}
-              <p
-                className="
-                mt-4
-                tracking-[4px]
-                uppercase
-                text-[#b87333]
-                text-sm
-                bold
-                md:text-base
-                "
-              >
-                Please Join Us For A Morning
-              </p>
-
-              <p
-                className="
-                mt-2
-                italic
-                text-[#8c6b5d]
-                text-base
-                md:text-lg
-                "
-              >
-                Filled with love, laughter and turmeric.
-              </p>
+              
 
               {/* Main Title */}
               <h2
                 className="
                 font-title
                 text-[#b45b14]
-                text-4xl
+                text-3xl
+                sm:text-4xl
                 md:text-5xl
-                mt-8
-                tracking-[4px]
+                mt-6
+                tracking-[3px]
+                sm:tracking-[4px]
                 "
               >
                 HALDI CEREMONY
@@ -126,16 +89,18 @@ export default function WeddingCeremony() {
               <div
                 className="
                 inline-block
-                mt-8
-                px-8
+                mt-6
+                px-6
                 py-3
                 rounded-full
                 border
                 border-[#d8b26f]
                 bg-white/50
                 font-semibold
-                text-sm
+                text-xs
+                sm:text-sm
                 md:text-base
+                haldi
                 "
               >
                 19 JULY 2026 | 10:00 AM
@@ -150,8 +115,9 @@ export default function WeddingCeremony() {
                 width={340}
                 height={340}
                 className="
-                w-[280px]
-                md:w-[340px]
+                w-full
+                max-w-[300px]
+                sm:max-w-[340px]
                 object-contain
                 drop-shadow-xl
                 rounded-2xl
@@ -222,55 +188,18 @@ export default function WeddingCeremony() {
                 </div>
               </div>
 
-              {/* Hashtag */}
-              <p
-                className="
-                mt-5
-                text-[#8B1E2D]
-                italic
-                text-xl
-                tracking-wide
-                "
-              >
-                #PraRupWedding
-              </p>
-
-              {/* Subtitle */}
-              <p
-                className="
-                mt-4
-                tracking-[4px]
-                uppercase
-                text-[#8B1E2D]
-                text-sm
-                bold
-                md:text-base
-                "
-              >
-                Please Join Us For A Sacred Celebration
-              </p>
-
-              <p
-                className="
-                mt-2
-                italic
-                text-[#7c5757]
-                text-base
-                md:text-lg
-                "
-              >
-                As two hearts, two families and two journeys become one.
-              </p>
 
               {/* Main Title */}
               <h2
                 className="
                 font-title
                 text-[#8B1E2D]
-                text-4xl
+                text-3xl
+                sm:text-4xl
                 md:text-5xl
-                mt-8
-                tracking-[4px]
+                mt-6
+                tracking-[3px]
+                sm:tracking-[4px]
                 "
               >
                 WEDDING CEREMONY
@@ -280,8 +209,8 @@ export default function WeddingCeremony() {
               <div
                 className="
                 inline-block
-                mt-8
-                px-8
+                mt-6
+                px-6
                 py-3
                 rounded-full
                 border
@@ -289,8 +218,10 @@ export default function WeddingCeremony() {
                 bg-white/50
                 text-[#8B1E2D]
                 font-semibold
-                text-sm
+                text-xs
+                sm:text-sm
                 md:text-base
+                wedding
                 "
               >
                 19 JULY 2026 | 01:37 PM
@@ -306,8 +237,9 @@ export default function WeddingCeremony() {
                 width={340}
                 height={340}
                 className="
-                w-[280px]
-                md:w-[340px]
+                w-full
+                max-w-[300px]
+                sm:max-w-[340px]
                 object-contain
                 drop-shadow-xl
                 rounded-2xl

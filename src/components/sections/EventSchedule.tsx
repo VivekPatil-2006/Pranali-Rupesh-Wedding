@@ -2,15 +2,17 @@
 
 export default function EventSchedule() {
   return (
-    <section className="py-24 px-4 text-center">
+    <section className="py-16 sm:py-24 px-4 text-center">
 
       <h2
         className="
         font-title
         text-[#8B1E2D]
-        text-5xl
+        text-4xl
+        sm:text-5xl
         md:text-7xl
         tracking-[6px]
+        leading-tight
         "
       >
         EVENTS SCHEDULE

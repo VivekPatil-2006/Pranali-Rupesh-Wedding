@@ -39,6 +39,8 @@ export default function GaneshVandana() {
         z-10
         w-full
         max-w-3xl
+        px-4
+        sm:px-6
         text-center
         "
       >
@@ -91,12 +93,17 @@ export default function GaneshVandana() {
               tracking-[3px]
               text-sm
               bold
+              backgroundGanesh
               md:text-base
               "
             >
               || OM SHREE GANESHAYA NAMAH ||
             </p>
+
+          <br/>
+
           </div>
+
 
           {/* Shloka with filled blur background panel */}
 
@@ -121,9 +128,11 @@ export default function GaneshVandana() {
               <h2
                 className="
                 text-[#5C0F14]
-                text-2xl
+                text-lg
+                sm:text-xl
                 md:text-3xl
-                leading-loose
+                leading-relaxed
+                sm:leading-loose
                 "
               >
                 मङ्गलं भगवान विष्णुः
@@ -135,21 +144,6 @@ export default function GaneshVandana() {
                 मङ्गलाय तनो हरिः ॥
               </h2>
 
-              {/* Translation */}
-
-              <p
-                className="
-                mt-6
-                text-[#7b1c2a]
-                italic
-                text-base
-                md:text-lg
-                "
-              >
-                Mangalam Bhagwan Vishnu · Mangalam Garudadhwajah
-                <br />
-                Mangalam Pundarikakshah · Mangalaya Tano Harih
-              </p>
             </div>
           </div>
 
@@ -159,12 +153,14 @@ export default function GaneshVandana() {
             className="
             mt-10
             text-[#6a4a4a]
-            text-lg
+            text-base
+            sm:text-lg
             md:text-2xl
             leading-relaxed
+            max-w-2xl
+            mx-auto
             "
           >
-            <br/>
             We request the honor of your gracious presence
             <br />
             on the auspicious occasion of the wedding
@@ -172,7 +168,6 @@ export default function GaneshVandana() {
           </p>
 
           {/* Scroll Down Indicator */}
-
           <motion.div
             animate={{
               y: [0, 10, 0],
@@ -189,6 +184,7 @@ export default function GaneshVandana() {
             justify-center
             "
           >
+            <br/>
             <p
               className="
               text-[#7b1c2a]

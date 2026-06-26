@@ -32,14 +32,16 @@ export default function Footer() {
           className="
           font-script
           text-[#d4af37]
-          text-6xl
+          text-4xl
+          sm:text-5xl
           md:text-8xl
+          leading-tight
           "
         >
           Pranali &amp; Rupesh
         </h2>
 
-        <div className="text-5xl mt-8 mb-8">
+        <div className="text-4xl sm:text-5xl mt-8 mb-8">
           ❤️
         </div>
 
@@ -47,7 +49,8 @@ export default function Footer() {
           className="
           font-script
           text-[#f5e3b0]
-          text-3xl
+          text-2xl
+          sm:text-3xl
           md:text-4xl
           "
         >

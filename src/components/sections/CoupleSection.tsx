@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function CoupleSection() {
   return (
-    <section className="relative min-h-screen py-24 px-4 overflow-hidden">
+    <section className="relative min-h-screen py-16 sm:py-24 px-4 overflow-hidden">
       {/* Background */}
 
       <div className="absolute inset-0 opacity-20">
@@ -44,8 +44,10 @@ export default function CoupleSection() {
           className="
           font-script
           text-[#8B1E2D]
-          text-[70px] 
+          text-[48px]
+          sm:text-[70px]
           md:text-[110px]
+          leading-tight
           "
         >
           Pranali
@@ -55,9 +57,7 @@ export default function CoupleSection() {
           D/o Mr. Jitendra Patil & Mrs. Vandana Patil
         </p>
 
-        <p className="italic text-[#7A5A5A] mt-2">
-          Granddaughter of Mr. Dhondiram Patil
-        </p>
+    
 
 
         {/* WEDS */}
@@ -74,8 +74,10 @@ export default function CoupleSection() {
           className="
           font-script
           text-[#8B1E2D]
-          text-[70px] 
+          text-[48px]
+          sm:text-[70px]
           md:text-[110px]
+          leading-tight
           "
         >
           Rupesh
@@ -85,9 +87,6 @@ export default function CoupleSection() {
           S/o Mr. Rajendra Shinde & Mrs. Suvarna Shinde
         </p>
 
-        <p className="italic text-[#7A5A5A] mt-2">
-          Grandson of Mr. Sarjerao Shinde
-        </p>
 
         {/* Shiva Parvati */}
 
@@ -97,7 +96,7 @@ export default function CoupleSection() {
             alt="Shiva Parvati"
             width={420}
             height={420}
-            className="object-contain"
+            className="w-full max-w-[320px] sm:max-w-[420px] object-contain"
           />
         </div>
       </motion.div>

@@ -89,7 +89,11 @@ export default function LandingHero({
         transition-transform
         duration-300
         hover:scale-105
-        mt-20
+        mt-16
+        w-full
+        max-w-[90vw]
+        sm:max-w-[420px]
+        mx-auto
         "
       >
         <Image
@@ -99,9 +103,9 @@ export default function LandingHero({
           height={420}
           priority
           className="
-          w-[260px]
-          md:w-[420px]
+          w-full
           h-auto
+          max-w-[420px]
           "
         />
       </div>
@@ -114,8 +118,11 @@ export default function LandingHero({
         font-title
         text-[#7b1c2a]
         text-3xl
+        sm:text-4xl
         md:text-5xl
-        tracking-[8px]
+        tracking-[6px]
+        sm:tracking-[8px]
+        leading-tight
         "
       >
         YOU&apos;RE INVITED
@@ -129,7 +136,12 @@ export default function LandingHero({
         text-[#7b1c2a]
         italic
         text-sm
+        sm:text-base
         md:text-lg
+        max-w-[90%]
+        mx-auto
+        leading-relaxed
+        bold
         "
       >
         Tap the envelope to open our invitation

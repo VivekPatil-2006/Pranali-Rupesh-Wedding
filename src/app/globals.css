@@ -169,13 +169,37 @@ body {
 @media (max-width: 768px) {
 
   .font-script {
-    font-size: 48px !important;
+    font-size: 42px !important;
   }
 
   h2.font-title {
-    font-size: 36px !important;
+    font-size: 34px !important;
   }
 
+  .glass-card {
+    border-radius: 24px;
+  }
+
+  .section-padding {
+    padding: 60px 16px;
+  }
+
+  .venue {
+    font-size: 1rem;
+  }
+
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+iframe {
+  width: 100%;
+  border: 0;
+  min-height: 240px;
 }
 
 #envelope.open {
@@ -322,4 +346,28 @@ body {
   animation:
     confettiBurst
     4s linear forwards;
+}
+
+.bold{
+  font-weight: bold;
+}
+
+.backgroundGanesh{
+  background-color: white;
+}
+
+.haldi{
+  font-family: "serif";
+  font-weight: bold;
+  color: #b45b14;
+}
+
+.wedding{
+  font-family: "serif";
+  font-weight: bold;
+  color: #7b1c2a;
+}
+
+.venue{
+  color: #b45b14;
 }
